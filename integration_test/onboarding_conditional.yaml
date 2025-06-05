@@ -1,7 +1,9 @@
 appId: com.mawaqit.androidtv
 ---
-- launchApp
+- launchApp:
+    clearState: true
 
+- tapOn: "Got it"
 # Wait for app to fully load
 - waitForAnimationToEnd
 
