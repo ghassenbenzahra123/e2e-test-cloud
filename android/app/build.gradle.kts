@@ -44,12 +44,7 @@ android {
 
     signingConfigs {
         create("release") {
-          if (System.getenv()["CI"] == "true") {
-            storeFile = file(System.getenv()["CM_KEYSTORE_PATH"])
-            storePassword = System.getenv()["CM_KEYSTORE_PASSWORD"]
-            keyAlias = System.getenv()["CM_KEY_ALIAS"]
-            keyPassword = System.getenv()["CM_KEY_PASSWORD"]
-          } else if (keystorePropsFile.exists() &&
+          if (keystorePropsFile.exists() &&
             keystoreProps["storeFile"] != null &&
             keystoreProps["storePassword"] != null &&
             keystoreProps["keyAlias"] != null &&
