@@ -61,9 +61,18 @@ android {
             keyPassword = keystoreProps["keyPassword"].toString()
           }
         }
+        getByName("debug") {
+        }
     }
 
     buildTypes {
+        getByName("debug") {
+        isMinifyEnabled = false
+        isShrinkResources = false
+        signingConfig = signingConfigs.getByName("debug")
+        isDebuggable = true
+        }  
+
         getByName("release") {
             isMinifyEnabled = false
             isShrinkResources = false
