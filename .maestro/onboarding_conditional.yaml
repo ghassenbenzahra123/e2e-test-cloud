@@ -2,10 +2,10 @@ appId: com.mawaqit.androidtv
 ---
 - launchApp:
     clearState: true
+- waitForAnimationToEnd
 
 - tapOn: "Got it"
 # Wait for app to fully load
-- waitForAnimationToEnd
 
 # ===============================
 # STEP 1: LANGUAGE SELECTION

@@ -1,6 +1,7 @@
 appId: com.mawaqit.androidtv
 ---
 - launchApp
+- waitForAnimationToEnd
 
 - tapOn: "Got it"
 
