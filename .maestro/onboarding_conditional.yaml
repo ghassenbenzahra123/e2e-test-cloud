@@ -2,10 +2,10 @@ appId: com.mawaqit.androidtv
 ---
 - launchApp:
     clearState: true
-- waitForAnimationToEnd
 
 - tapOn: "Got it"
 # Wait for app to fully load
+- waitForAnimationToEnd
 
 # ===============================
 # STEP 1: LANGUAGE SELECTION
@@ -52,6 +52,8 @@ appId: com.mawaqit.androidtv
 - tapOn: "Yes" # User knows the mosque ID
 - inputText: "3"
 - pressKey: Enter
+- tapOn:
+    index: 0  # Select first item in list
 - waitForAnimationToEnd
 
 # ===============================
