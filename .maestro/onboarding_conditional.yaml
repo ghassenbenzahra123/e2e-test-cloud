@@ -1,11 +1,20 @@
 appId: com.mawaqit.androidtv
 ---
+onFlowStart:
+  - clearState
+  - clearKeychain
+  - takeScreenshot:
+      path: ".maestro/screenshots/01_initial_screen.png"
+
+---
+# Main flow commands
 - launchApp:
     clearState: true
 
 - tapOn: "Got it"
-# Wait for app to fully load
-- waitForAnimationToEnd
+# Language selection screen
+- assertVisible: "App Language"
+- tapOn: "English"
 
 # ===============================
 # STEP 1: LANGUAGE SELECTION
