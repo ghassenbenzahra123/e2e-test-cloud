@@ -2,6 +2,7 @@ appId: com.mawaqit.androidtv
 ---
 - launchApp
 
+- tapOn: "Got it"
 
 # Wait for onboarding to complete and app to be ready
 - extendedWaitUntil:

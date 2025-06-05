@@ -51,11 +51,7 @@ appId: com.mawaqit.androidtv
 # Handle the mosque selection flow
 - tapOn: "Yes" # User knows the mosque ID
 - inputText: "3"
-- tapOn:
-    point: "94%,47%"
-- pressKey: Back
-- tapOn:
-    index: 0  # Select first item in list
+- pressKey: Enter
 - waitForAnimationToEnd
 
 # ===============================
