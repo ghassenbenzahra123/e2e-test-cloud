@@ -44,7 +44,7 @@ jobs:
         uses: devicecloud-dev/device-cloud-for-maestro@v1
         with:
           api-key: ${{ secrets.DCD_API_KEY }}
-          android-device: pixel-7-pro
+          android-device: generic-tablet
           orientation: 90
           app-file: build/app/outputs/flutter-apk/app-debug.apk
           name: ${{ inputs.run_name || github.ref_name }}
