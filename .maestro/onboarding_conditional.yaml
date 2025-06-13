@@ -1,19 +1,16 @@
 appId: com.mawaqit.androidtv
+---
+- launchApp
 
-# Main flow commands
-- launchApp:
-    clearState: true
-
-- tapOn: "Got it"
-# Language selection screen
-- assertVisible: "App Language"
-- tapOn: "English"
+# Wait for app to fully load
+- waitForAnimationToEnd
 
 # ===============================
 # STEP 1: LANGUAGE SELECTION
 # ===============================
 # This step is common for both rooted and normal devices
-
+- assertVisible: "English"
+- tapOn: "English"
 - waitForAnimationToEnd
 
 # ===============================
@@ -52,7 +49,9 @@ appId: com.mawaqit.androidtv
 # Handle the mosque selection flow
 - tapOn: "Yes" # User knows the mosque ID
 - inputText: "3"
-- pressKey: Enter
+- tapOn:
+    point: "94%,47%"
+- pressKey: Back
 - tapOn:
     index: 0  # Select first item in list
 - waitForAnimationToEnd
@@ -81,4 +80,4 @@ appId: com.mawaqit.androidtv
 # Verify onboarding completion
 - extendedWaitUntil:
     visible: "السلام عليكم و رحمة الله و بركاته ٫ حللتم أهلا ونزلتم سهلا"
-    timeout: 40000
+    timeout: 10000
