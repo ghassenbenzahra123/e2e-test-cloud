@@ -3,6 +3,18 @@ appId: com.mawaqit.androidtv
 - launchApp
 - waitForAnimationToEnd
 
+# ===============================
+# HANDLE INITIAL DIALOG
+# ===============================
+# Handle the "Got it" dialog that appears on app launch
+- runFlow:
+    when:
+      visible: "Got it"
+    commands:
+      - tapOn: "Got it"
+      - waitForAnimationToEnd
+
+
 - tapOn: "Got it"
 
 # Wait for app to be ready
