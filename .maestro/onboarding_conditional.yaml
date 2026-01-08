@@ -35,6 +35,7 @@ appId: com.mawaqit.androidtv
       - pressKey: Remote Dpad Down
       - pressKey: Remote Dpad Down
       - pressKey: Remote Dpad Down
+      - pressKey: Remote Dpad Down
       - extendedWaitUntil:
           visible: "English"
           timeout: 5000
