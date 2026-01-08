@@ -1,0 +1,49 @@
+name: Manual Mobile App Tests
+on:
+  push:
+    tags:
+      - '*'
+  workflow_dispatch:
+    inputs:
+      run_name:
+        description: 'Custom name for this test run'
+        required: false
+        type: string
+
+jobs:
+  run-maestro-tests:
+    name: Run Maestro Tests on devicecloud.dev
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.27.0'
+          
+      - name: Install dependencies
+        run: flutter pub get
+        
+      - name: Generate bundles
+        run: dart run build_runner build
+        
+      - name: Build Android APK (release)
+        run: |
+          flutter build apk --debug \
+            --dart-define mawaqit.sentry.dns=${{ secrets.MAWAQIT_SENTRY_DNS}} \
+            --dart-define mawaqit.api.key=${{ secrets.MAWAQIT_API_KEY}} \
+            --dart-define=mawaqit.firebase.api_key=${{ secrets.FIREBASE_API_KEY}} \
+            --dart-define=mawaqit.firebase.app_id=${{ secrets.FIREBASE_APP_ID}} \
+            --dart-define=mawaqit.firebase.messaging_sender_id=${{ secrets.FIREBASE_MESSAGING_ID}} \
+            --dart-define=mawaqit.firebase.project_id=${{ secrets.FIREBASE_PROJECT_ID}} \
+            --dart-define=mawaqit.firebase.storage_bucket=${{ secrets.FIREBASE_STORAGE_BUCKET}}
+            
+      - name: Run Maestro Tests on Device Cloud (Android)
+        uses: devicecloud-dev/device-cloud-for-maestro@v1
+        with:
+          api-key: ${{ secrets.DCD_API_KEY }}
+          android-device: generic-tablet
+          app-file: build/app/outputs/flutter-apk/app-debug.apk
+          name: ${{ inputs.run_name || github.ref_name }}
