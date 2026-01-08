@@ -6,6 +6,17 @@ appId: com.mawaqit.androidtv
 - waitForAnimationToEnd
 
 # ===============================
+# STEP 0: HANDLE FULLSCREEN DIALOG
+# ===============================
+# Dismiss the "Viewing full screen" dialog if it appears
+- runFlow:
+    when:
+      visible: "Got it"
+    commands:
+      - tapOn: "Got it"
+      - waitForAnimationToEnd
+
+# ===============================
 # STEP 1: LANGUAGE SELECTION
 # ===============================
 # This step is common for both rooted and normal devices
