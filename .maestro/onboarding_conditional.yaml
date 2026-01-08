@@ -10,7 +10,6 @@ appId: com.mawaqit.androidtv
 # ===============================
 # This step is common for both rooted and normal devices
 # Navigate down to English (it's further down the list) only if not already visible
-- assertVisible: "English" # Verify language selection screen loaded
 - runFlow:
     when:
       notVisible: "English"
