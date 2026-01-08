@@ -15,21 +15,60 @@ jobs:
     name: Run Maestro Tests on devicecloud.dev
     runs-on: ubuntu-latest
     steps:
+      - name: Free up disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /usr/local/share/boost
+          sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+          docker rmi $(docker images -q) || true
+          df -h
+
       - name: Checkout code
-        uses: actions/checkout@v3
-        
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'gradle'
+
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.24.5'
-          
+          channel: 'stable'
+          cache: true
+
+      - name: Cache Flutter dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.pub-cache
+            ${{ github.workspace }}/.dart_tool
+          key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pub-
+
+      - name: Cache Gradle
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+            android/.gradle
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
       - name: Install dependencies
         run: flutter pub get
-        
+
       - name: Generate bundles
-        run: dart run build_runner build
-        
-      - name: Build Android APK (release)
+        run: dart run build_runner build --delete-conflicting-outputs
+
+      - name: Build Android APK (debug)
         run: |
           flutter build apk --debug \
             --dart-define mawaqit.sentry.dns=${{ secrets.MAWAQIT_SENTRY_DNS}} \
@@ -39,7 +78,7 @@ jobs:
             --dart-define=mawaqit.firebase.messaging_sender_id=${{ secrets.FIREBASE_MESSAGING_ID}} \
             --dart-define=mawaqit.firebase.project_id=${{ secrets.FIREBASE_PROJECT_ID}} \
             --dart-define=mawaqit.firebase.storage_bucket=${{ secrets.FIREBASE_STORAGE_BUCKET}}
-            
+
       - name: Run Maestro Tests on Device Cloud (Android)
         uses: devicecloud-dev/device-cloud-for-maestro@v1
         with:
