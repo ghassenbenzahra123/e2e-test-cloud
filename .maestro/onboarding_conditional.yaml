@@ -21,24 +21,7 @@ appId: com.mawaqit.androidtv
 # ===============================
 # This step is common for both rooted and normal devices
 # Navigate down to English (it's further down the list) only if not already visible
-- runFlow:
-    when:
-      notVisible: "English"
-    commands:
-      - pressKey: Remote Dpad Down
-      - pressKey: Remote Dpad Down
-      - pressKey: Remote Dpad Down
-      - pressKey: Remote Dpad Down
-      - pressKey: Remote Dpad Down
-      - pressKey: Remote Dpad Down
-      - pressKey: Remote Dpad Down
-      - pressKey: Remote Dpad Down
-      - pressKey: Remote Dpad Down
-      - pressKey: Remote Dpad Down
-      - pressKey: Remote Dpad Down
-      - extendedWaitUntil:
-          visible: "English"
-          timeout: 5000
+- assertVisible: "English"
 - pressKey: Enter # Select English
 - tapOn: "Next"
 - waitForAnimationToEnd

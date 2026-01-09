@@ -1,6 +1,8 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:global_configuration/global_configuration.dart';
+import 'package:logger/logger.dart';
 import 'package:mawaqit/i18n/l10n.dart';
 import 'package:mawaqit/src/const/config.dart';
 import 'package:mawaqit/src/const/constants.dart';
@@ -24,6 +26,7 @@ class AppLanguage extends ChangeNotifier {
   /// [kHadithLanguage] key stored in the shared preference
   String _hadithLanguage = "";
   Locale _appLocale = Locale('en', '');
+  final logger = Logger();
 
   String languageName(String languageCode) => Config.isoLang[languageCode]?['nativeName'] ?? languageCode;
 
@@ -60,7 +63,41 @@ class AppLanguage extends ChangeNotifier {
   Future<void> fetchLocale() async {
     var prefs = await SharedPreferences.getInstance();
     if (prefs.getString('language_code') == null) {
-      _appLocale = Locale(GlobalConfiguration().getValue('defaultLanguage'), '');
+      // Try to detect device language from the platform
+      try {
+        // First try to get locale from Platform.localeName (more reliable on Android)
+        String? deviceLanguageCode;
+
+        try {
+          final localeName = Platform.localeName; // Returns format like "en_US" or "fr_FR"
+          // Handle both underscore and hyphen separators
+          deviceLanguageCode = localeName.split(RegExp(r'[_-]'))[0]; // Extract just the language code
+          logger.i('Device locale detected from Platform.localeName: $deviceLanguageCode (full: $localeName)');
+        } catch (e) {
+          logger.w('Failed to get Platform.localeName: $e');
+          // Fallback to WidgetsBinding
+          final deviceLocale = WidgetsBinding.instance.platformDispatcher.locale;
+          deviceLanguageCode = deviceLocale.languageCode;
+          logger.i('Device locale detected from platformDispatcher: $deviceLanguageCode');
+        }
+
+        // Check if the device language is supported
+        if (deviceLanguageCode != null &&
+            S.supportedLocales.any((locale) => locale.languageCode == deviceLanguageCode)) {
+          _appLocale = Locale(deviceLanguageCode, '');
+          logger.i('Setting app locale to detected device language: $deviceLanguageCode');
+        } else {
+          // Fallback to default language if device language is not supported
+          final defaultLang = GlobalConfiguration().getValue('defaultLanguage');
+          _appLocale = Locale(defaultLang, '');
+          logger.i('Device language not supported, using default: $defaultLang');
+        }
+      } catch (e, stackTrace) {
+        // If device locale detection fails, use default language
+        final defaultLang = GlobalConfiguration().getValue('defaultLanguage');
+        _appLocale = Locale(defaultLang, '');
+        logger.e('Error detecting device language, using default: $defaultLang', error: e, stackTrace: stackTrace);
+      }
       notifyListeners();
       return null;
     }

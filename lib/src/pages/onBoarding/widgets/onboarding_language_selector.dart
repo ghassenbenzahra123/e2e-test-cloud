@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:logger/logger.dart';
 import 'package:mawaqit/i18n/AppLanguage.dart';
 import 'package:mawaqit/i18n/l10n.dart';
 import 'package:mawaqit/src/helpers/LocaleHelper.dart';
@@ -72,6 +73,7 @@ class _OnBoardingLanguageSelectorState extends ConsumerState<OnBoardingLanguageS
   int _focusedIndex = 0;
   List<FocusNode> _focusNodes = [];
   List<Locale> _sortedLocales = [];
+  final logger = Logger();
 
   @override
   void initState() {
@@ -147,11 +149,18 @@ class _OnBoardingLanguageSelectorState extends ConsumerState<OnBoardingLanguageS
       );
 
       // Find the selected language index
-      int selectedIndex = _sortedLocales.indexWhere((locale) =>
-          LocaleHelper.transformLocaleToString(appLanguage.appLocal) == LocaleHelper.transformLocaleToString(locale));
+      final currentLangCode = appLanguage.appLocal.languageCode;
+      logger.i('Looking for language: $currentLangCode in list of ${_sortedLocales.length} locales');
+      logger.i('Sorted locales: ${_sortedLocales.map((l) => l.languageCode).toList()}');
+
+      int selectedIndex = _sortedLocales.indexWhere((locale) => locale.languageCode == currentLangCode);
 
       if (selectedIndex != -1) {
         _focusedIndex = selectedIndex;
+        logger.i('Found language at index: $selectedIndex');
+      } else {
+        logger.w('Language $currentLangCode not found in list, defaulting to index 0');
+        // If still not found, keep _focusedIndex at its current value (0 by default)
       }
     }
 
