@@ -71,27 +71,6 @@ appId: com.mawaqit.androidtv
 - waitForAnimationToEnd
 - tapOn: "Finish"
 
-# ===============================
-# CONDITIONAL MOSQUE MODE STEPS
-# ===============================
-# These steps only appear if mosque is selected
-
-# Handle screen type selection (mosque mode only)
-- runFlow:
-    when:
-      visible: "Main screen"
-    commands:
-      - tapOn: "Main screen"
-      - waitForAnimationToEnd
-
-# Handle announcement mode selection (mosque mode only)
-- runFlow:
-    when:
-      visible: "Regular mode"
-    commands:
-      - tapOn: "Regular mode"
-      - waitForAnimationToEnd
-
 # Verify onboarding completion
 - extendedWaitUntil:
     visible: "السلام عليكم و رحمة الله و بركاته ٫ حللتم أهلا ونزلتم سهلا"
