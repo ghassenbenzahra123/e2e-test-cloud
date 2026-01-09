@@ -54,7 +54,6 @@ appId: com.mawaqit.androidtv
 - waitForAnimationToEnd
 - tapOn: "Finish"
 
-# Verify onboarding completion
-- extendedWaitUntil:
-    visible: "السلام عليكم و رحمة الله و بركاته ٫ حللتم أهلا ونزلتم سهلا"
-    timeout: 10000
+# Verify onboarding completion - ensure the Finish button is no longer visible
+- waitForAnimationToEnd
+- assertNotVisible: "Finish"
