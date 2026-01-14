@@ -1,0 +1,7 @@
+appId: com.mawaqit.androidtv
+
+# Tests run sequentially on the same emulator instance
+# Order matters - onboarding runs first, then other tests use the set-up app
+flows:
+  - onboarding_conditional.yaml
+  - developer_mode_test.yaml

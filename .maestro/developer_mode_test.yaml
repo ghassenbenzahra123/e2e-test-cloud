@@ -1,17 +1,13 @@
 appId: com.mawaqit.androidtv
 ---
 # Test: Enable Developer Mode
-# This test completes onboarding and then enables developer mode
-
-# Step 1: Complete the onboarding process
-- runFlow: flows/onboarding.yaml
-
+# Runs after onboarding_conditional.yaml - app is already set up
 
 # ===============================
 # DEVELOPER MODE ACTIVATION FLOW
 # ===============================
 
-# Open the drawer using arrow key (any arrow key opens the drawer)
+# Open the drawer using arrow key
 - pressKey: Remote Dpad Left
 - pressKey: Remote Dpad Left
 
@@ -48,5 +44,5 @@ appId: com.mawaqit.androidtv
 # Verify that developer options are now visible in the drawer
 - assertVisible: "Developer's home screen"
 
-# Optional: Tap on developer menu to verify it works
+# Tap on developer menu to verify it works
 - tapOn: "Developer's home screen"

@@ -1,8 +1,5 @@
 appId: com.mawaqit.androidtv
 ---
-# Reusable onboarding flow - completes the full app setup process
-# This flow can be imported by other test files using: runFlow: flows/onboarding.yaml
-
 - launchApp
 
 # Wait for app to fully load
