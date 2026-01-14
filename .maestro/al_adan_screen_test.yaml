@@ -1,0 +1,57 @@
+appId: com.mawaqit.androidtv
+---
+# Test: Al Adan Screen
+# First runs onboarding and enables developer mode, then tests Al Adan screen
+
+# ===============================
+# RUN ONBOARDING FIRST
+# ===============================
+- runFlow: onboarding_conditional.yaml
+
+# ===============================
+# ENABLE DEVELOPER MODE
+# ===============================
+# Open the drawer using arrow key
+- pressKey: Remote Dpad Left
+- pressKey: Remote Dpad Left
+- waitForAnimationToEnd
+
+# Navigate to About section in the drawer
+- tapOn: "About"
+- waitForAnimationToEnd
+
+# Press down arrow 7 times to activate developer mode
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- waitForAnimationToEnd
+
+# Go back to main screen
+- pressKey: Back
+
+# ===============================
+# AL ADAN SCREEN TEST
+# ===============================
+- pressKey: Remote Dpad Left
+- waitForAnimationToEnd
+
+# Navigate down to Al Adan option
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+
+- tapOn: "Al Adan"
+
+- assertVisible: ".*Al Adan.*"

@@ -1,0 +1,59 @@
+appId: com.mawaqit.androidtv
+---
+# Test: Eid Mubarak Screen
+# First runs onboarding and enables developer mode, then tests Eid Mubarak screen
+
+# ===============================
+# RUN ONBOARDING FIRST
+# ===============================
+- runFlow: onboarding_conditional.yaml
+
+# ===============================
+# ENABLE DEVELOPER MODE
+# ===============================
+# Open the drawer using arrow key
+- pressKey: Remote Dpad Left
+- pressKey: Remote Dpad Left
+- waitForAnimationToEnd
+
+# Navigate to About section in the drawer
+- tapOn: "About"
+- waitForAnimationToEnd
+
+# Press down arrow 7 times to activate developer mode
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- waitForAnimationToEnd
+
+# Go back to main screen
+- pressKey: Back
+
+# ===============================
+# EID MUBARAK SCREEN TEST
+# ===============================
+- pressKey: Remote Dpad Left
+- waitForAnimationToEnd
+
+# Navigate down to Eid Mubarak option
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+
+- tapOn: "Eid Mubarak"
+
+- assertVisible: ".*Allahu Akbar, Allahu Akbar, Allahu Akbar, la ilaha illa Allah.*"
+- assertVisible: ".*Allahu Akbar, Allahu Akbar, wa lillahi al-hamd.*"
+- assertVisible: ".*Allahu Akbar, Allahu Akbar, Allahu Akbar, la ilaha illa Allah, Allahu Akbar, Allahu Akbar, wa lillahi al-hamd.*"
