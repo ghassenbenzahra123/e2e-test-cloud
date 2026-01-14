@@ -6,6 +6,8 @@ appId: com.mawaqit.androidtv
 # ===============================
 # DEVELOPER MODE ACTIVATION FLOW
 # ===============================
+- launchApp
+- waitForAnimationToEnd
 
 # Open the drawer using arrow key
 - pressKey: Remote Dpad Left
