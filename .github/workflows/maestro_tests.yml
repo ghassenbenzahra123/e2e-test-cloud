@@ -86,3 +86,4 @@ jobs:
           android-device: generic-tablet
           app-file: build/app/outputs/flutter-apk/app-debug.apk
           name: ${{ inputs.run_name || github.ref_name }}
+          runner-type: gpu1
