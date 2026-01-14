@@ -1,8 +1,58 @@
 appId: com.mawaqit.androidtv
 ---
-# Test: Complete onboarding flow
-# This test verifies that users can successfully complete the onboarding process
+# Reusable onboarding flow - completes the full app setup process
+# This flow can be imported by other test files using: runFlow: flows/onboarding.yaml
 
-# Run the reusable onboarding flow
-- runFlow: flows/onboarding.yaml
+- launchApp
 
+# Wait for app to fully load
+- waitForAnimationToEnd
+
+# ===============================
+# STEP 0: HANDLE FULLSCREEN DIALOG
+# ===============================
+# Dismiss the "Viewing full screen" dialog if it appears
+- runFlow:
+    when:
+      visible: "Got it"
+    commands:
+      - tapOn: "Got it"
+      - waitForAnimationToEnd
+
+# ===============================
+# STEP 1: LANGUAGE SELECTION
+# ===============================
+# This step is common for both rooted and normal devices
+# Navigate down to English (it's further down the list) only if not already visible
+- assertVisible: "English"
+- pressKey: Enter # Select English
+- tapOn: "Next"
+- waitForAnimationToEnd
+
+# ===============================
+# STEP 2: ORIENTATION SELECTION
+# ===============================
+# Common step for both flows
+- assertVisible: "Landscape"
+- tapOn: "Landscape"
+- tapOn: "Next"
+- waitForAnimationToEnd
+
+# ===============================
+# STEP 3: ABOUT MAWAQIT
+# ===============================
+- tapOn: "Next"
+- waitForAnimationToEnd
+
+# ===============================
+# STEP 4: MOSQUE SEARCH
+# ===============================
+# Handle the mosque selection flow
+- tapOn: "Yes" # User knows the mosque ID
+- tapOn: "Next"
+- inputText: "3"
+- pressKey: Enter
+- tapOn:
+    index: 0  # Select first item in list
+- waitForAnimationToEnd
+- tapOn: "Finish"
