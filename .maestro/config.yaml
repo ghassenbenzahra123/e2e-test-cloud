@@ -1,9 +1,8 @@
 appId: com.mawaqit.androidtv
 
-# Tests run sequentially on the same emulator instance
-# Order matters - onboarding runs first, then other tests use the set-up app
+# Each test that needs onboarding will run it via runFlow
+# This preserves state within each test flow
 executionOrder:
   continueOnFailure: false
   flowsOrder:
-    - onboarding_conditional
     - developer_mode_test
