@@ -6,10 +6,6 @@ appId: com.mawaqit.androidtv
 # Step 1: Complete the onboarding process
 - runFlow: flows/onboarding.yaml
 
-# Step 2: Wait for onboarding to complete and app to be ready
-- extendedWaitUntil:
-    visible: "السلام عليكم و رحمة الله و بركاته ٫ حللتم أهلا ونزلتم سهلا"
-    timeout: 10000
 
 # ===============================
 # DEVELOPER MODE ACTIVATION FLOW
