@@ -231,6 +231,7 @@ appId: com.mawaqit.androidtv
 - pressKey: Remote Dpad Down
 - pressKey: Remote Dpad Down
 - pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
 
 - tapOn: "Jumua"
 - assertVisible: ".*Whoever does the ablutions perfectly then goes to jumua and then listens and is silent.*"
