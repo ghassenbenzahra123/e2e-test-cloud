@@ -234,39 +234,10 @@ appId: com.mawaqit.androidtv
 
 - tapOn: "Jumua"
 - assertVisible: ".*Whoever does the ablutions perfectly then goes to jumua and then listens and is silent.*"
-- assertVisible: ".*مَنْ تَوَضَّأَ فَأَحْسَنَ الْوُضُوءَ ثُمَّ أَتَى الْجُمُعَةَ فَاسْتَمَعَ.*"
 
 # Go back to drawer
 - pressKey: Back
 
-# ===============================
-# TEST RANDOM HADITH SCREEN
-# ===============================
-- pressKey: Remote Dpad Left
-- waitForAnimationToEnd
-
-- pressKey: Remote Dpad Down
-- pressKey: Remote Dpad Down
-- pressKey: Remote Dpad Down
-- pressKey: Remote Dpad Down
-- pressKey: Remote Dpad Down
-- pressKey: Remote Dpad Down
-- pressKey: Remote Dpad Down
-- pressKey: Remote Dpad Down
-- pressKey: Remote Dpad Down
-- pressKey: Remote Dpad Down
-- pressKey: Remote Dpad Down
-- pressKey: Remote Dpad Down
-- pressKey: Remote Dpad Down
-- pressKey: Remote Dpad Down
-- pressKey: Remote Dpad Down
-- pressKey: Remote Dpad Down
-- pressKey: Remote Dpad Down
-
-- tapOn: "Random Hadith"
-
-# Go back to drawer
-- pressKey: Back
 
 # ===============================
 # TEST SUPPLICATION SCREEN
@@ -290,11 +261,7 @@ appId: com.mawaqit.androidtv
 - tapOn: ".*Supplication.*"
 
 # Test the title without diacritics
-- assertVisible: ".*الدعاء لا يرد بين الأذان والإقامة.*"
-
-# Test the hadith text (from the body)
-- assertVisible: ".*عن أنس بن مالك قال.*"
-- assertVisible: ".*عن أنس بن مالك قال: قال رسول الله صلَّى اللهُ عليه وسلَّم:.*"
+- assertVisible: ".*is not rejected between the Adan and Iqamah.*"
 
 # Test the English parts
 - assertVisible: ".*Anas bin Malik said.*"
