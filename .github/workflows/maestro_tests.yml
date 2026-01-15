@@ -12,7 +12,7 @@ on:
 
 jobs:
   run-maestro-tests:
-    name: Run Maestro Tests on devicecloud.dev
+    name: Run Maestro Tests on TestingBot
     runs-on: ubuntu-latest
     steps:
       - name: Free up disk space
@@ -79,10 +79,16 @@ jobs:
             --dart-define=mawaqit.firebase.project_id=${{ secrets.FIREBASE_PROJECT_ID}} \
             --dart-define=mawaqit.firebase.storage_bucket=${{ secrets.FIREBASE_STORAGE_BUCKET}}
 
-      - name: Run Maestro Tests on Device Cloud (Android)
-        uses: devicecloud-dev/device-cloud-for-maestro@v1
-        with:
-          api-key: ${{ secrets.DCD_API_KEY }}
-          android-device: generic-tablet
-          app-file: build/app/outputs/flutter-apk/app-debug.apk
-          name: ${{ inputs.run_name || github.ref_name }}
+      - name: Install TestingBot CLI
+        run: npm install -g @testingbot/cli
+
+      - name: Run Maestro Tests on TestingBot
+        run: |
+          testingbot maestro \
+            build/app/outputs/flutter-apk/app-debug.apk \
+            .maestro \
+            --device "Pixel 8" \
+            --deviceVersion "14"
+        env:
+          TB_KEY: ${{ secrets.TB_KEY }}
+          TB_SECRET: ${{ secrets.TB_SECRET }}
