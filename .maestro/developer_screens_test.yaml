@@ -1,12 +1,52 @@
 appId: com.mawaqit.androidtv
 ---
-# Test: Developer Mode Screens
-# Runs onboarding, enables developer mode, then tests all developer screens
+# Test: All Developer Mode Screens
+# Complete test that runs onboarding, enables developer mode, then tests all screens
 
 # ===============================
-# RUN ONBOARDING FIRST
+# ONBOARDING
 # ===============================
-- runFlow: onboarding_conditional.yaml
+- launchApp
+
+# Wait for app to fully load
+- waitForAnimationToEnd
+
+# Dismiss the "Viewing full screen" dialog if it appears
+- runFlow:
+    when:
+      visible: "Got it"
+    commands:
+      - tapOn: "Got it"
+      - waitForAnimationToEnd
+
+# LANGUAGE SELECTION
+- assertVisible: "English"
+- pressKey: Enter
+- tapOn: "Next"
+- waitForAnimationToEnd
+
+# ORIENTATION SELECTION
+- assertVisible: "Landscape"
+- tapOn: "Landscape"
+- tapOn: "Next"
+- waitForAnimationToEnd
+
+# ABOUT MAWAQIT
+- tapOn: "Next"
+- waitForAnimationToEnd
+
+# MOSQUE SEARCH
+- tapOn: "Yes"
+- tapOn: "Next"
+- inputText: "3"
+- pressKey: Enter
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: ".*GRIGNY.*"
+    timeout: 10000
+- tapOn: ".*GRIGNY.*"
+- waitForAnimationToEnd
+- tapOn: "Finish"
 
 # ===============================
 # DEVELOPER MODE ACTIVATION
@@ -51,7 +91,6 @@ appId: com.mawaqit.androidtv
 - pressKey: Remote Dpad Left
 - waitForAnimationToEnd
 
-# Navigate down to Al Adan option
 - pressKey: Remote Dpad Down
 - pressKey: Remote Dpad Down
 - pressKey: Remote Dpad Down
@@ -76,7 +115,6 @@ appId: com.mawaqit.androidtv
 - pressKey: Remote Dpad Left
 - waitForAnimationToEnd
 
-# Navigate down to Eid Mubarak option
 - pressKey: Remote Dpad Down
 - pressKey: Remote Dpad Down
 - pressKey: Remote Dpad Down
@@ -93,3 +131,172 @@ appId: com.mawaqit.androidtv
 - assertVisible: ".*Allahu Akbar, Allahu Akbar, Allahu Akbar, la ilaha illa Allah.*"
 - assertVisible: ".*Allahu Akbar, Allahu Akbar, wa lillahi al-hamd.*"
 - assertVisible: ".*Allahu Akbar, Allahu Akbar, Allahu Akbar, la ilaha illa Allah, Allahu Akbar, Allahu Akbar, wa lillahi al-hamd.*"
+
+# Go back to drawer
+- pressKey: Back
+
+# ===============================
+# TEST DUAA EL EFTAR SCREEN
+# ===============================
+- pressKey: Remote Dpad Left
+- waitForAnimationToEnd
+
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+
+- tapOn: "Duaa El Eftar"
+
+# Go back to drawer
+- pressKey: Back
+
+# ===============================
+# TEST IQAMAA COUNT DOWN SCREEN
+# ===============================
+- pressKey: Remote Dpad Left
+- waitForAnimationToEnd
+
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+
+- tapOn: "Iqamaa Count Down"
+- assertVisible: ".*Iqama in.*"
+
+# Go back to drawer
+- pressKey: Back
+
+# ===============================
+# TEST IQAMA SCREEN
+# ===============================
+- pressKey: Remote Dpad Left
+- waitForAnimationToEnd
+
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+
+- tapOn: "Iqama"
+- assertVisible: ".*Please put your phones into Silent Mode.*"
+
+# Go back to drawer
+- pressKey: Back
+
+# ===============================
+# TEST JUMUA SCREEN
+# ===============================
+- pressKey: Remote Dpad Left
+- waitForAnimationToEnd
+
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+
+- tapOn: "Jumua"
+- assertVisible: ".*Whoever does the ablutions perfectly then goes to jumua and then listens and is silent.*"
+- assertVisible: ".*مَنْ تَوَضَّأَ فَأَحْسَنَ الْوُضُوءَ ثُمَّ أَتَى الْجُمُعَةَ فَاسْتَمَعَ.*"
+
+# Go back to drawer
+- pressKey: Back
+
+# ===============================
+# TEST RANDOM HADITH SCREEN
+# ===============================
+- pressKey: Remote Dpad Left
+- waitForAnimationToEnd
+
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+
+- tapOn: "Random Hadith"
+
+# Go back to drawer
+- pressKey: Back
+
+# ===============================
+# TEST SUPPLICATION SCREEN
+# ===============================
+- pressKey: Remote Dpad Left
+- waitForAnimationToEnd
+
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+
+- tapOn: ".*Supplication.*"
+
+# Test the title without diacritics
+- assertVisible: ".*الدعاء لا يرد بين الأذان والإقامة.*"
+
+# Test the hadith text (from the body)
+- assertVisible: ".*عن أنس بن مالك قال.*"
+- assertVisible: ".*عن أنس بن مالك قال: قال رسول الله صلَّى اللهُ عليه وسلَّم:.*"
+
+# Test the English parts
+- assertVisible: ".*Anas bin Malik said.*"
+- assertVisible: ".*The supplication does not return.*"
+- assertVisible: ".*between the call to prayer and the standing.*"
