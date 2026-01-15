@@ -49,6 +49,7 @@ appId: com.mawaqit.androidtv
 - tapOn: "Next"
 - inputText: "3"
 - pressKey: Enter
+- waitForAnimationToEnd
 - tapOn: "91350 GRIGNY France"
 - waitForAnimationToEnd
 - tapOn: "Finish"
