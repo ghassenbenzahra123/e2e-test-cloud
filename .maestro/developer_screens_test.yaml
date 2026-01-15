@@ -1,7 +1,7 @@
 appId: com.mawaqit.androidtv
 ---
-# Test: Eid Mubarak Screen
-# First runs onboarding and enables developer mode, then tests Eid Mubarak screen
+# Test: Developer Mode Screens
+# Runs onboarding, enables developer mode, then tests all developer screens
 
 # ===============================
 # RUN ONBOARDING FIRST
@@ -9,8 +9,10 @@ appId: com.mawaqit.androidtv
 - runFlow: onboarding_conditional.yaml
 
 # ===============================
-# ENABLE DEVELOPER MODE
+# DEVELOPER MODE ACTIVATION
 # ===============================
+- waitForAnimationToEnd
+
 # Open the drawer using arrow key
 - pressKey: Remote Dpad Left
 - pressKey: Remote Dpad Left
@@ -30,11 +32,46 @@ appId: com.mawaqit.androidtv
 - pressKey: Remote Dpad Down
 - waitForAnimationToEnd
 
-# Go back to main screen
+# Go back to see the drawer with developer options
+- pressKey: Back
+
+# Open drawer again to verify developer mode is enabled
+- pressKey: Remote Dpad Down
+- waitForAnimationToEnd
+
+# Verify that developer options are now visible in the drawer
+- assertVisible: "Developer's home screen"
+
+# Tap on developer menu to verify it works
+- tapOn: "Developer's home screen"
+
+# ===============================
+# TEST AL ADAN SCREEN
+# ===============================
+- pressKey: Remote Dpad Left
+- waitForAnimationToEnd
+
+# Navigate down to Al Adan option
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+- pressKey: Remote Dpad Down
+
+- tapOn: "Al Adan"
+- assertVisible: ".*Al Adan.*"
+
+# Go back to drawer
 - pressKey: Back
 
 # ===============================
-# EID MUBARAK SCREEN TEST
+# TEST EID MUBARAK SCREEN
 # ===============================
 - pressKey: Remote Dpad Left
 - waitForAnimationToEnd
@@ -53,7 +90,6 @@ appId: com.mawaqit.androidtv
 - pressKey: Remote Dpad Down
 
 - tapOn: "Eid Mubarak"
-
 - assertVisible: ".*Allahu Akbar, Allahu Akbar, Allahu Akbar, la ilaha illa Allah.*"
 - assertVisible: ".*Allahu Akbar, Allahu Akbar, wa lillahi al-hamd.*"
 - assertVisible: ".*Allahu Akbar, Allahu Akbar, Allahu Akbar, la ilaha illa Allah, Allahu Akbar, Allahu Akbar, wa lillahi al-hamd.*"

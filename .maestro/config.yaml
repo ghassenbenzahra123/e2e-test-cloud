@@ -5,6 +5,4 @@ appId: com.mawaqit.androidtv
 executionOrder:
   continueOnFailure: false
   flowsOrder:
-    - developer_mode_test
-    - al_adan_screen_test
-    - eid_mubarak_screen_test
+    - developer_screens_test
