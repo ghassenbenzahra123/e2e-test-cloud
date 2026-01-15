@@ -87,8 +87,9 @@ jobs:
           testingbot maestro \
             build/app/outputs/flutter-apk/app-debug.apk \
             .maestro \
-            --device "Pixel 8" \
-            --deviceVersion "14"
+            --device "Galaxy Tab S9" \
+            --deviceVersion "15" \
+            --orientation LANDSCAPE
         env:
           TB_KEY: ${{ secrets.TB_KEY }}
           TB_SECRET: ${{ secrets.TB_SECRET }}
