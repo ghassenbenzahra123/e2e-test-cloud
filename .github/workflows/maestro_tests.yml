@@ -68,9 +68,9 @@ jobs:
       - name: Generate bundles
         run: dart run build_runner build --delete-conflicting-outputs
 
-      - name: Build Android APK (debug)
+      - name: Build Android APK (release)
         run: |
-          flutter build apk --debug \
+          flutter build apk --release \
             --dart-define mawaqit.sentry.dns=${{ secrets.MAWAQIT_SENTRY_DNS}} \
             --dart-define mawaqit.api.key=${{ secrets.MAWAQIT_API_KEY}} \
             --dart-define=mawaqit.firebase.api_key=${{ secrets.FIREBASE_API_KEY}} \
@@ -85,7 +85,7 @@ jobs:
       - name: Run Maestro Tests on TestingBot
         run: |
           testingbot maestro \
-            build/app/outputs/flutter-apk/app-debug.apk \
+            build/app/outputs/flutter-apk/app-release.apk \
             .maestro \
             --device "Galaxy Tab S9" \
             --deviceVersion "15" \
