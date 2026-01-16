@@ -19,6 +19,13 @@ appId: com.mawaqit.androidtv
       - tapOn: "Got it"
       - waitForAnimationToEnd
 
+- runFlow:
+    when:
+      visible: "MAWAQIT isn't responding"
+    commands:
+      - tapOn: "Wait"
+      - waitForAnimationToEnd
+      
 # LANGUAGE SELECTION
 - assertVisible: "English"
 - pressKey: Enter
