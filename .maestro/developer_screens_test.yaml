@@ -25,7 +25,20 @@ appId: com.mawaqit.androidtv
     commands:
       - tapOn: "Wait"
       - waitForAnimationToEnd
-      
+
+# Wait a bit for ANR dialog to potentially appear
+- extendedWaitUntil:
+    visible: "English"
+    timeout: 15000
+
+# Check for ANR again after wait
+- runFlow:
+    when:
+      visible: "MAWAQIT isn't responding"
+    commands:
+      - tapOn: "Wait"
+      - waitForAnimationToEnd
+
 # LANGUAGE SELECTION
 - assertVisible: "English"
 - pressKey: Enter
