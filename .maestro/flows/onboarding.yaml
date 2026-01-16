@@ -9,6 +9,16 @@ appId: com.mawaqit.androidtv
 - waitForAnimationToEnd
 
 # ===============================
+# HANDLE ANR DIALOG (App Not Responding)
+# ===============================
+- runFlow:
+    when:
+      visible: "MAWAQIT isn't responding"
+    commands:
+      - tapOn: "Wait"
+      - waitForAnimationToEnd
+
+# ===============================
 # STEP 0: HANDLE FULLSCREEN DIALOG
 # ===============================
 - runFlow:
