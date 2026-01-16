@@ -261,8 +261,8 @@ appId: com.mawaqit.androidtv
 
 - tapOn: ".*Supplication.*"
 
-# Test the title without diacritics
-- assertVisible: ".*is not rejected between the Adan and Iqamah.*"
+# Test the title
+- assertVisible: ".*is not rejected between the Adhan and Iqamah.*"
 
 # Test the English parts
 - assertVisible: ".*Anas bin Malik said.*"
